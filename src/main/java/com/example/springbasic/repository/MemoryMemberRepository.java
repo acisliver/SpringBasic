@@ -1,6 +1,7 @@
 package com.example.springbasic.repository;
 
 import com.example.springbasic.domain.Member;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
