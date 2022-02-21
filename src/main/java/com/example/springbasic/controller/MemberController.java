@@ -1,8 +1,12 @@
 package com.example.springbasic.controller;
 
+import com.example.springbasic.MemberForm;
+import com.example.springbasic.domain.Member;
 import com.example.springbasic.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller // 스프링 컨테이너에 컨트롤러 등록 (컴포넌트 스캔)
 public class MemberController {
@@ -20,5 +24,19 @@ public class MemberController {
     @Autowired
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
+    }
+
+    @GetMapping("/members/new")
+    public String createForm() {
+        return "members/createMemberForm";
+    }
+
+    @PostMapping("/members/new")
+    public String create(MemberForm form) {
+        Member member = new Member();
+        member.setName(form.getName());
+        memberService.join(member);
+
+        return "redirect:/";
     }
 }
