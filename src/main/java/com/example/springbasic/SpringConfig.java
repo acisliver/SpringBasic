@@ -1,5 +1,6 @@
 package com.example.springbasic;
 
+import com.example.springbasic.aop.TimeTraceAop;
 import com.example.springbasic.repository.*;
 import com.example.springbasic.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,12 @@ public class SpringConfig {
     public MemberService memberService() {
         return new MemberService(memberRepository);
     }
+
+    // 명시적
+//    @Bean
+//    public TimeTraceAop timeTraceAop() {
+//        return new TimeTraceAop();
+//    }
 
     // config에서 구현체만 바꿔도 실행이 잘 된다.
 //    @Bean
