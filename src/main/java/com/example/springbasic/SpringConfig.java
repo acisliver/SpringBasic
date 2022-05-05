@@ -1,14 +1,13 @@
 package com.example.springbasic;
 
-import com.example.springbasic.repository.JdbcMemberRepository;
-import com.example.springbasic.repository.JdbcTemplateMemberRepository;
-import com.example.springbasic.repository.MemberRepository;
-import com.example.springbasic.repository.MemoryMemberRepository;
+import com.example.springbasic.repository.*;
 import com.example.springbasic.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
 // 상황에 따라 구현 클래스를 변경해야할 때
@@ -16,11 +15,19 @@ import javax.sql.DataSource;
 @Configuration
 public class SpringConfig {
 
-    private DataSource dataSource;
+//    private DataSource dataSource;
+//
+//    @Autowired
+//    public SpringConfig(DataSource dataSource) {
+//        this.dataSource = dataSource;
+//    }
+
+//    @PersistenceContext  Doc에서 권장하는 방법
+    private EntityManager em;
 
     @Autowired
-    public SpringConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public SpringConfig(EntityManager em) {
+        this.em = em;
     }
 
     @Bean
@@ -33,6 +40,7 @@ public class SpringConfig {
     public MemberRepository memberRepository() {
 //        return new MemoryMemberRepository();
 //        return new JdbcMemberRepository(dataSource);
-        return new JdbcTemplateMemberRepository(dataSource);
+//        return new JdbcTemplateMemberRepository(dataSource);
+        return new JpaMemberRepository(em);
     }
 }
